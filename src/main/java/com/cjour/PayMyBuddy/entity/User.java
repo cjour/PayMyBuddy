@@ -4,25 +4,33 @@ import javax.persistence.*;
 
 import lombok.Data;
 
-@Data
+
 @Entity
 @Table(name = "users")
 public class User {
 
 	@Id
-	@Column(name="id")
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "id")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	
-	@Column(name="user_name")
+
+	@Column(name = "user_name")
 	private String userName;
-	
-	@Column(name="password")
+
+	@Column(name = "password")
 	private String password;
-	
-	@Column(name="balance")
+
+	@Column(name = "balance")
 	private int balance;
-	
+
+	public User(Integer id, String userName, String password, int balance) {
+		super();
+		this.id = id;
+		this.userName = userName;
+		this.password = password;
+		this.balance = balance;
+	}
+
 	public User() {
 		super();
 	}
@@ -58,5 +66,4 @@ public class User {
 	public void setBalance(int balance) {
 		this.balance = balance;
 	}
-
 }
