@@ -1,8 +1,5 @@
 package com.cjour.PayMyBuddy.config;
 
-import javax.sql.DataSource;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -19,8 +16,7 @@ import com.cjour.PayMyBuddy.DAO.CustomUserDetailsService;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-	@Autowired
-	private DataSource dataSource;
+
 	
 	@Bean
 	public UserDetailsService userDetailsService() {
@@ -48,16 +44,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests()
-			.antMatchers("/").authenticated()
-			.anyRequest().permitAll()
-			.and()
+		http
+			.authorizeRequests()
+					.antMatchers("/", "/register", "/register_action", "/login", "/login_action", "/webjars/**").permitAll()
+					.anyRequest().authenticated()
+					.and()
 			.formLogin()
-				.usernameParameter("userName")
-				.defaultSuccessUrl("/")
-				.permitAll()
-			.and()
-			.logout().logoutSuccessUrl("/").permitAll();
+					.loginPage("/login")
+					.permitAll()
+					.and()
+			.logout()
+					.permitAll();
 	}
 	
 	
