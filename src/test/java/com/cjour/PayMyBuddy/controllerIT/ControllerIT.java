@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Profile;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
@@ -43,6 +44,8 @@ public class ControllerIT {
 	
 	@BeforeEach
 	public void cleanDatabase() throws SQLException {
+		//@Query("DELETE FROM users, transactions, creditcards, contacts")
+		//How to just send a query ?
 	}
 	
 	@Test
