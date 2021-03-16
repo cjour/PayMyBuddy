@@ -2,8 +2,6 @@ package com.cjour.PayMyBuddy.entity;
 
 import javax.persistence.*;
 
-import lombok.Data;
-
 
 @Entity
 @Table(name = "users")

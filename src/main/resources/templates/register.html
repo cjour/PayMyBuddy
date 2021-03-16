@@ -34,7 +34,7 @@
             
 
 <section class="row justify-content-center">
-    <form class="col col-sm-10 col-md-8 col-lg-3 encart d-flex flex-column align-items-center" th:action="@{/register_action}" th:object="${user}" method="POST">
+    <form class="col col-sm-10 col-md-8 col-lg-3 encart d-flex flex-column align-items-center" style="border:solid 2px; border-radius:7px; padding:25px; color:grey" th:action="@{/register_action}" th:object="${user}" method="POST">
         <h1 style="background: linear-gradient(to right, #57B462, #81C244); padding:10px; border-radius:10px; color:white" >Pay My Buddy</h1>
         <input class="form-control mb-4 mt-4" type="text" name="Pseudo" placeholder="Username" required th:field="*{userName}">
         <input id="pass" class="form-control mb-4" type="password" name="Password" placeholder="Password" required th:field="*{password}" minlength="6" maxlength="10">

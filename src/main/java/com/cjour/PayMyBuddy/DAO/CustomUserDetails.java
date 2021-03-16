@@ -9,6 +9,10 @@ import com.cjour.PayMyBuddy.entity.User;
 
 public class CustomUserDetails implements UserDetails {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private User user;
 	
 	public CustomUserDetails(User user) {

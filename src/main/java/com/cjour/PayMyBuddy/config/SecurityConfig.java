@@ -1,8 +1,8 @@
 package com.cjour.PayMyBuddy.config;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -17,8 +17,14 @@ import com.cjour.PayMyBuddy.DAO.CustomUserDetailsService;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-	@Value("${security.enable-csrf}")
-	private boolean csrfEnabled;
+//	@Value("${security.enable-csrf}")
+//	private boolean csrfEnabled = true;
+	
+	@Bean
+	@Override
+	public AuthenticationManager authenticationManagerBean() throws Exception {
+	return super.authenticationManagerBean();
+	}
 	
 	@Bean
 	public UserDetailsService userDetailsService() {
@@ -56,11 +62,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 					.permitAll()
 					.and()
 			.logout()
-					.permitAll();
+					.logoutUrl("/logout")
+					.invalidateHttpSession(true); //doesn't seem to work
 		
-		if (!csrfEnabled) {
-			http.csrf().disable();
-		}
+//		if (!csrfEnabled) {
+//			http.csrf().disable();
+//		}
 	}
 	
 	

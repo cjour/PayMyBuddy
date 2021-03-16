@@ -11,7 +11,6 @@ public class Transaction {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
 	
-	
 	@Column(name="amount")
 	private Integer amount;
 	
@@ -23,6 +22,8 @@ public class Transaction {
 	
 	@Column(name="beneficiary")
 	private Integer beneficiary;
+	
+	
 	
 	public Transaction(Integer id, Integer amount, String description, Integer transmittor, Integer beneficiary) {
 		super();

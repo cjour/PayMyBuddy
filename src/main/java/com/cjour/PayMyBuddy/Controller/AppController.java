@@ -1,9 +1,17 @@
 package com.cjour.PayMyBuddy.Controller;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
-
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-
+import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 import org.springframework.stereotype.Controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,12 +19,17 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.cjour.PayMyBuddy.DAO.CustomUserDetailsService;
+import com.cjour.PayMyBuddy.DAO.LoginService;
 import com.cjour.PayMyBuddy.DAO.UserRepository;
 import com.cjour.PayMyBuddy.entity.User;
 
 @Controller
 public class AppController {
 
+	@Autowired
+	LoginService loginService;
+	
 	@Autowired
 	private UserRepository userService;
 
@@ -54,17 +67,17 @@ public class AppController {
 	}
 
 	@PostMapping("/login_action")
-	public String loginAction(User user) {
-		User userRetrieved = userService.findByUserName(user.getUserName());
-		if (userRetrieved != null) {
-			BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-			if (encoder.matches(user.getPassword(), userRetrieved.getPassword())) {
-				return "dashboardUser";
-			}
-		}
+	public String loginAction(HttpServletRequest req, User user) {
+		
+	    loginService.authenticateUser(req, user);
+	    if (SecurityContextHolder.getContext().getAuthentication().getPrincipal() instanceof UserDetails) {
+	      return "dashboardUser";
+	    }
+	    
 		return "login";
 	}
-	
+
+
 	@GetMapping("/transfer")
 	public String transferView() {
 		return "transfer";
@@ -80,7 +93,7 @@ public class AppController {
 		return "contact";
 	}
 	
-	@GetMapping("/logOff")
+	@GetMapping("/logout")
 	public String logOff() {
 		return "home";
 	}
