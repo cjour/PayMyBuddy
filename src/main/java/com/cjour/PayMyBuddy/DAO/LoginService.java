@@ -29,4 +29,6 @@ public class LoginService {
 		HttpSession session = req.getSession(true);
 	    session.setAttribute(HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY, sc);
 	}
+
+	
 }
