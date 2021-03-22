@@ -17,8 +17,7 @@ import com.cjour.PayMyBuddy.DAO.CustomUserDetailsService;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-//	@Value("${security.enable-csrf}")
-//	private boolean csrfEnabled = true;
+
 	
 	@Bean
 	@Override
@@ -52,7 +51,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http
+		http.csrf().disable()
 			.authorizeRequests()
 					.antMatchers("/", "/register", "/register_action", "/login", "/login_action", "/webjars/**").permitAll()
 					.anyRequest().authenticated()
@@ -61,14 +60,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 					.loginPage("/login")
 					.permitAll()
 					.and()
-			.logout()
-					.logoutUrl("/logout")
-					.invalidateHttpSession(true); //doesn't seem to work
-		
-//		if (!csrfEnabled) {
-//			http.csrf().disable();
-//		}
+			.logout();
 	}
-	
-	
 }
