@@ -1,4 +1,4 @@
-package com.cjour.PayMyBuddy.DAO;
+package com.cjour.PayMyBuddy.Service;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -8,10 +8,11 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 import org.springframework.stereotype.Service;
 
-import com.cjour.PayMyBuddy.entity.User;
+import com.cjour.PayMyBuddy.Entity.User;
 
 @Service
 public class LoginService {
@@ -28,6 +29,12 @@ public class LoginService {
 		sc.setAuthentication(authenticationManager.authenticate(this.generateToken(user)));
 		HttpSession session = req.getSession(true);
 	    session.setAttribute(HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY, sc);
+	}
+	
+	public void registerUser(User user) {
+		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+		String encodedPassword = passwordEncoder.encode(user.getPassword());
+		user.setPassword(encodedPassword);
 	}
 
 	

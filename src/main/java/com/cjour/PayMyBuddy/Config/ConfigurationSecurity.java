@@ -1,4 +1,4 @@
-package com.cjour.PayMyBuddy.config;
+package com.cjour.PayMyBuddy.Config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -11,18 +11,16 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import com.cjour.PayMyBuddy.DAO.CustomUserDetailsService;
-
+import com.cjour.PayMyBuddy.Service.CustomUserDetailsService;
 
 @Configuration
 @EnableWebSecurity
-public class SecurityConfig extends WebSecurityConfigurerAdapter {
+public class ConfigurationSecurity extends WebSecurityConfigurerAdapter{
 
-	
 	@Bean
 	@Override
 	public AuthenticationManager authenticationManagerBean() throws Exception {
-	return super.authenticationManagerBean();
+		return super.authenticationManagerBean();
 	}
 	
 	@Bean
@@ -43,23 +41,23 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		
 		return authProvider;
 	}
-
+	
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		auth.authenticationProvider(authenticationProvider());
 	}
-
+	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.csrf().disable()
-			.authorizeRequests()
-					.antMatchers("/", "/register", "/register_action", "/login", "/login_action", "/webjars/**").permitAll()
-					.anyRequest().authenticated()
-					.and()
-			.formLogin()
-					.loginPage("/login")
-					.permitAll()
-					.and()
-			.logout();
+		.authorizeRequests()
+		.antMatchers("/", "/register", "/register_action", "/login", "/login_action", "/webjars/**").permitAll()
+		.anyRequest().authenticated()
+		.and()
+		.formLogin()
+		.loginPage("/login")
+		.permitAll()
+		.and()
+		.logout();
 	}
 }

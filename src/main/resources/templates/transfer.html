@@ -1,45 +1,111 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-	<head>
-		<meta charset="ISO-8859-1">
-		<title>Pay My Buddy - Home</title>
-		<link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css" />
-    <script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
-    <script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.min.js"></script>
-	</head>
-	<body style="padding-top : 160px">
+<head>
+<meta charset="utf-8">
+<title>Pay My Buddy - Home</title>
+<link rel="stylesheet" type="text/css"
+	href="/webjars/bootstrap/css/bootstrap.min.css" />
+<script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
+<script type="text/javascript"
+	src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+</head>
+<body style="padding-top: 160px">
 	<header>
 		<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
-	        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
-	          <span class="navbar-toggler-icon"></span>
-	        </button>
-	        <h1>
-	        	<a class="navbar-brand" th:href="@{/}">Pay My Buddy</a>
-	        </h1>
-	
-	        <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
-	          <ul class="navbar-nav mr-auto mt-2 mt-lg-0 container-fluid justify-content-end">
-	            <li class="nav-item">
-	            	<a class="Btn_link btn btn-success mr-2" th:href="@{/transfer}">Transfer</a>
-	            </li>
-	            
-	            <li class="nav-item">
-	            	<a class="Btn_link btn btn-success mr-2" th:href="@{/profile}">Profile</a>
-	            </li>
-	          
-	          	<li class="nav-item">
-	            	<a class="Btn_link btn btn-success mr-2" th:href="@{/contact}">Contact</a>
-	            </li>
-	            
-	            <li class="nav-item">
-	            	<a class="Btn_link btn btn-success mr-2" th:href="@{/logout}">Log off</a>
-	            </li>
-	          
-	          </ul>
-	        </div>
-	      </nav>
+			<button class="navbar-toggler" type="button" data-toggle="collapse"
+				data-target="#navbarTogglerDemo03"
+				aria-controls="navbarTogglerDemo03" aria-expanded="false"
+				aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<h1>
+				<a class="navbar-brand" th:href="@{/}">Pay My Buddy</a>
+			</h1>
+
+			<div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+				<ul
+					class="navbar-nav mr-auto mt-2 mt-lg-0 container-fluid justify-content-end">
+					<li class="nav-item"><a class="Btn_link btn btn-success mr-2"
+						th:href="@{/transfer}">Transfer</a></li>
+
+					<li class="nav-item"><a class="Btn_link btn btn-success mr-2"
+						th:href="@{/profile}">Profile</a></li>
+
+					<li class="nav-item"><a class="Btn_link btn btn-success mr-2"
+						th:href="@{/contact}">Contact</a></li>
+
+					<li class="nav-item"><a class="Btn_link btn btn-success mr-2"
+						th:href="@{/logout}">Log off</a></li>
+
+				</ul>
+			</div>
+		</nav>
 	</header>
-		
-	      
-	</body>
+	<section>
+		<section
+			class="row col-12 encart d-flex flex-column align-items-center">
+			<div class="col-9 d-flex justify-content-between">
+				
+				<span style="font-size: 2em;">Send Money</span>
+				<span>Your balance : <span th:text="${user.creditCard.deposit}"></span> €</span>
+				<form th:action="@{/contact}">
+					<button type="submit" class="Btn_link btn btn-primary">Add connection</button>
+				</form>
+			</div>
+				<form
+					class="col-9 encart d-flex align-items-center"
+					style="border: solid 2px; border-radius: 7px; padding: 25px; color: grey"
+					th:action="@{/transfer}" method="POST">
+					<select id="connection-select" name="beneficiary">
+						<option>Select A connection</option>
+						<option th:each="contact : ${user.contacts}"
+							th:text="${contact.getUserName}"></option>
+					</select>
+					<input class="form-control mb-4" type="text" name="Password"
+						placeholder="Amount" required th:name="amount">
+						<input class="form-control mb-4" type="text" name="Description"
+						placeholder="Description" required th:name="description">
+					<button id="submit_sign_in" style="padding-left:50px; padding-right:50px;" type="submit"
+						class="Btn_link btn btn-success">Pay</button>
+				</form>
+			
+		</section>
+		<section
+			class="row col-12 encart d-flex flex-column align-items-center">
+			
+				<div class="row col-12 encart d-flex justify-content-center" style="padding:0px;">
+					<div class="row col-9 encart d-flex"><span style="font-size: 2em; padding:0px;">My Transactions</span></div>
+				</div>
+				<table class="col-9" style="border: solid 2px;">
+					<thead class="col-12 encart d-flex justify-content-center"
+						style="padding: 0px;">
+						<tr class="row col-12 encart d-flex justify-content-center p-5"
+							style="background-color: #57B462; border-bottom: solid 2px;">
+							<th class="col-4 d-flex justify-content-center align-items-center"
+								style="color: white">Connections</th>
+							<th class="col-4 d-flex justify-content-center align-items-center"
+								style="color: white">Description</th>
+							<th class="col-4 d-flex justify-content-center align-items-center"
+								style="color: white">Amount</th>
+						</tr>
+					</thead>
+					<tbody class="col-12 encart d-flex flex-column align-items-center"
+						style="padding: 0px;">
+						<tr th:each="transaction: ${setOfTransactions}"
+							class="col-12 encart d-flex justify-content-center p-5"
+							style="border-bottom: solid 2px;">
+							<th class="col-4 d-flex justify-content-center align-items-center"
+								th:text="${transaction.transmittor.userName}"></th>
+							<th class="col-4 d-flex justify-content-center align-items-center"
+								th:text="${transaction.description}"></th>
+							<th
+								class="col-4 d-flex justify-content-center align-items-centera"
+								th:text="${transaction.amount}"></th>
+						</tr>
+					</tbody>
+				</table>
+			
+		</section>
+	</section>
+</body>
 </html>

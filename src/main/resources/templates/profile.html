@@ -1,10 +1,13 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="ISO-8859-1">
+<meta charset="utf-8">
 <title>Pay My Buddy - Home</title>
 <link rel="stylesheet" type="text/css"
 	href="/webjars/bootstrap/css/bootstrap.min.css" />
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/fontawesome.min.css" rel="stylesheet" type="text/css" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/regular.min.css" rel="stylesheet" type="text/css" />
+	 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
 <script type="text/javascript"
 	src="/webjars/bootstrap/js/bootstrap.min.js"></script>
@@ -41,20 +44,17 @@
 			</div>
 		</nav>
 	</header>
-
+	
 	<section class="row col-12 encart d-flex justify-content-center">
-		<form
-			class="col col-sm-10 col-md-8 col-lg-3 encart d-flex flex-column align-items-center"
+		
+		<form class="col col-sm-10 col-md-8 col-lg-3 encart d-flex flex-column align-items-center"
 			style="border: solid 2px; border-radius: 7px; padding: 25px; color: grey"
-			th:action="@{/contact_action}" method="POST">
-			<input class="form-control mb-4" type="text" name="contact" placeholder="Contact to add" required th:name="connection">
-			
-			<button style="margin-top: 75px" type="submit"
-				class="Btn_link btn btn-success">Add</button>
+			th:action="@{/transferBank_action}" method="POST">
+			<div style="margin-bottom:1em;"><span><i class="fas fa-money-check-alt"></i> Your balance : <span th:text="${user.creditCard.deposit}"></span> €</span></div>
+			<input id="pass" class="form-control mb-4" type="text" name="amount" placeholder="Amount" required th:name="amount">
+			<button type="submit"
+				class="Btn_link btn btn-success">Transfer fund</button>
 		</form>
 	</section>
-	
-
-
 </body>
 </html>

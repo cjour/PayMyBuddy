@@ -1,17 +1,13 @@
-package com.cjour.PayMyBuddy.DAO;
+package com.cjour.PayMyBuddy.Entity;
 
 import java.util.Collection;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import com.cjour.PayMyBuddy.entity.User;
-
 public class CustomUserDetails implements UserDetails {
 
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
 	private User user;
 	

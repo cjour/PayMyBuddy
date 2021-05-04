@@ -1,4 +1,4 @@
-package com.cjour.PayMyBuddy.DAO;
+package com.cjour.PayMyBuddy.Service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -6,7 +6,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.cjour.PayMyBuddy.entity.User;
+import com.cjour.PayMyBuddy.Entity.CustomUserDetails;
+import com.cjour.PayMyBuddy.Entity.User;
 
 
 @Service
